@@ -33,7 +33,7 @@ async def send_telegram_message(pair, closing_price, price_levels, message):
         print(f"Error sending Telegram message: {e}")
 
 def calculate_atr_levels(pair, closing_price, daily_movement, pair_multipliers):
-    pair_multipliers = {"AUD_JPY": 100, "EUR_JPY": 100, "GBP_JPY": 100, "USD_JPY": 100, "CHF_JPY": 100, "NZD_JPY": 100}
+    pair_multipliers = {"AUD_JPY": 100, "EUR_JPY": 100, "GBP_JPY": 100, "USD_JPY": 100, "CHF_JPY": 100, "NZD_JPY": 100, "WTICO_USD": 100}
     default_multiplier = 10000
     pair_multiplier = pair_multipliers.get(pair, default_multiplier)
     atr_high = closing_price + (daily_movement / pair_multiplier)
@@ -141,7 +141,7 @@ def input_forex_data():
 
 # Example usage:
 user_input = input("Enter the data for the Forex pairs and daily movements (separated by tabs or spaces, e.g., 'AUD/CAD 68.13 0.78 AUD/CHF 49.75 0.88 AUD/JPY 87.02 0.91'):\n")
-pair_multipliers = {"AUD_JPY": 100, "USD_JPY": 100, "GBP_JPY": 100}
+pair_multipliers = {"AUD_JPY": 100, "EUR_JPY": 100, "GBP_JPY": 100, "USD_JPY": 100, "CHF_JPY": 100, "NZD_JPY": 100, "WTICO_USD": 100}
 
 result = process_user_input(user_input, pair_multipliers) #ATR
 ATR_DF = pd.DataFrame(result)#ATR
@@ -155,7 +155,7 @@ merged_df = pd.merge(user_input_df, ATR_DF, on='Pair', how='left')
 
 print(merged_df)
 
-pair_multipliers_diff = {"AUD_JPY": 100, "EUR_JPY": 100, "GBP_JPY": 100, "USD_JPY": 100, "CHF_JPY": 100, "NZD_JPY": 100}
+pair_multipliers_diff = {"AUD_JPY": 100, "EUR_JPY": 100, "GBP_JPY": 100, "USD_JPY": 100, "CHF_JPY": 100, "NZD_JPY": 100, "WTICO_USD": 100}
 
 # Add new columns 'ATR_High_Diff' and 'ATR_Low_Diff' to merged_df
 merged_df['ATR_High_Diff'] = None
@@ -178,7 +178,7 @@ for index, row in merged_df.iterrows():
 merged_df['LEVEL_TYPE'] = None
 
 # Example pair-specific multipliers (you can customize this)
-pair_multipliers_level = {"AUD_JPY": 100, "EUR_JPY": 100, "GBP_JPY": 100, "USD_JPY": 100, "CHF_JPY": 100, "NZD_JPY": 100}
+pair_multipliers_level = {"AUD_JPY": 100, "EUR_JPY": 100, "GBP_JPY": 100, "USD_JPY": 100, "CHF_JPY": 100, "NZD_JPY": 100, "WTICO_USD": 100}
 
 for index, row in merged_df.iterrows():
     price_levels = row['PriceLevels']
@@ -275,7 +275,7 @@ async def main():
             merged_result = merged_result.drop(['Closing_Time'], axis=1)
 
             # Define a dictionary with pair-specific multipliers
-            pair_specific_multipliers = {"AUD_JPY": 100, "EUR_JPY": 100, "GBP_JPY": 100, "USD_JPY": 100, "CHF_JPY": 100, "NZD_JPY": 100}
+            pair_specific_multipliers = {"AUD_JPY": 100, "EUR_JPY": 100, "GBP_JPY": 100, "USD_JPY": 100, "CHF_JPY": 100, "NZD_JPY": 100, "WTICO_USD": 100}
 
             # Calculate the absolute difference between avg_price and PriceLevels, multiplied by the pair-specific multiplier
             merged_result['Price_to_Level_in_Pips'] = merged_result.apply(lambda row: [abs(row['avg_price'] - level) * pair_specific_multipliers.get(row['Pair'], 10000) for level in row['PriceLevels']], axis=1)
