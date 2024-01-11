@@ -196,7 +196,7 @@ for index, row in merged_df.iterrows():
             if level < atr_low and diff_to_low <= 10:
                 level_types.append("Level on ATR_LOW") 
             elif level < atr_low and diff_to_low > 10:
-                level_types.append("Outside ATR")
+                level_types.append("Outside ATR_LEVELS")
             elif level > atr_high and diff_to_high <= 10:
                 level_types.append("Level on ATR_HIGH")
             elif level > atr_high and diff_to_high > 10:
@@ -217,7 +217,7 @@ for index, row in merged_df.iterrows():
         if level < atr_low and diff_to_low <= 10:
             level_types.append("Level on ATR_LOW") 
         elif level < atr_low and diff_to_low > 10:
-            level_types.append("Outside ATR")
+            level_types.append("Outside ATR_LEVELS")
         elif level > atr_high and diff_to_high <= 10:
             level_types.append("Level on ATR_HIGH")
         elif level > atr_high and diff_to_high > 10:
